@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/server1">
+        <input type="checkbox" id="age" name="age" checked>
+        <label for="age">I'm 18+</label>
+
+        <br>
+        <!--Radio(only one option will be selected)-->
+
+        <input type="radio" name="fruit" id="apple" value="apple">
+        <label for="apple">apple</label>
+        <input type="radio" name="fruit" id="Mango" value="Mango">
+        <label for="Mango">Mango</label>
+        <br>
+        <!--checkbox(can be selected multiple options)-->
+        <div>
+            Choose your Subjects:
+            <label for="subjects">math</label>
+            <input type="checkbox" id="subjects" name="subjects">
+            <label for="subjects">physics</label>
+            <input type="checkbox" id="subjects" name="subjects" value="phy">
+            <label for="subjects">chemistry</label>
+            <input type="checkbox" id="subjects" name="subjects" value="chem">
+
+        </div>
+        <!--Select dropdown options-->
+        <br>
+        Choose your proffesion
+        <select name="proffesion" id="proffesion">
+            <option value="stu">student</option>
+            <option value="prof">proffesor</option>
+            <option value="Engi">Engineer</option>
+            <option value="Doct.">Doctor</option>
+
+        </select>
+        <!--Range (incre or Decr)-->
+        <div>
+            <label for="vol">select volume level: </label>
+            <input type="range" name="vol" id="vol" min="0" max="100" step="10">
+
+        </div>
+        <br>
+        <!--Textarea-->
+        <label for="feedback">Please provide feedback</label>
+        <br>
+        <textarea name="feed" id="feedback" placeholder="write your feeback here"></textarea>
+        <button>Submit</button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotional NPCs - AI-Driven Storytelling</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #ecf0f1;
+        }
+        
+        header {
+            text-align: center;
+            margin: 20px 0 30px;
+            max-width: 800px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(236, 240, 241, 0.5);
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .game-container {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            background: #0d1b2a;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 2px solid #3498db;
+        }
+        
+        canvas {
+            display: block;
+        }
+        
+        .ui-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(13, 27, 42, 0.85);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid #3498db;
+            backdrop-filter: blur(5px);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #4aa3df, #3598db);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .help {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            max-width: 800px;
+        }
+        
+        .memory-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(13, 27, 42, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #3498db;
+            font-size: 0.9rem;
+        }
+        
+        .npc-name {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(44, 62, 80, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #3498db;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .instructions {
+            margin-top: 15px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 850px) {
+            .game-container {
+                width: 95vw;
+                height: 70vh;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Emotional NPCs</h1>
+        <p class="subtitle">AI-Driven NPCs with Emotional Memory | Your actions change how they treat you!</p>
+    </header>
+    
+    <div class="game-container">
+        <canvas id="gameCanvas" width="800" height="500"></canvas>
+        <div class="npc-name" id="npcName">Aria the Shopkeeper</div>
+        <div class="memory-indicator" id="memoryIndicator">Memory: Neutral</div>
+        
+        <div class="ui-panel">
+            <div class="dialogue" id="dialogue">
+                <p>Hi there! What brings you to my shop today?</p>
+            </div>
+            <div class="action-buttons">
+                <button id="helpBtn">Help</button>
+                <button id="buyBtn">Buy Item</button>
+                <button id="ignoreBtn">Ignore</button>
+                <button id="stealBtn">Steal</button>
+                <button id="lieBtn">Lie</button>
+            </div>
+            <div class="instructions">
+                <p>Interact with NPCs and see how your choices affect their behavior!</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="help">
+        <p>✨ This game features NPCs with emotional memory - your actions change how they treat you in the future!</p>
+        <p>Try different interactions to see how relationships evolve over time.</p>
+    </div>
+
+    <script>
+        // Game constants
+        const GAME_WIDTH = 800;
+        const GAME_HEIGHT = 500;
+        
+        // Emotional states and their properties
+        const EMOTIONAL_STATES = {
+            'happy': { color: '#2ecc71', name: 'Happy', trust: 1.0 },
+            'neutral': { color: '#3498db', name: 'Neutral', trust: 0.5 },
+            'sad': { color: '#f39c12', name: 'Sad', trust: 0.3 },
+            'angry': { color: '#e74c3c', name: 'Angry', trust: 0.1 },
+            'fearful': { color: '#9b59b6', name: 'Fearful', trust: 0.2 }
+        };
+        
+        // NPC class with emotional memory
+        class NPC {
+            constructor(name, x, y) {
+                this.name = name;
+                this.x = x;
+                this.y = y;
+                this.radius = 30;
+                this.emotionalState = 'neutral';
+                this.interactionHistory = [];
+                this.trust = 0.5; // Starting trust level (0-1)
+                this.lastInteracted = 0;
+            }
+            
+            // Update emotional state based on interactions
+            processInteraction(action) {
+                // Record the interaction
+                this.interactionHistory.push({
+                    action: action,
+                    timestamp: Date.now()
+                });
+                
+                // Adjust trust based on action
+                switch(action) {
+                    case 'help':
+                        this.trust = Math.min(1.0, this.trust + 0.25);
+                        break;
+                    case 'buy':
+                        this.trust = Math.min(1.0, this.trust + 0.1);
+                        break;
+                    case 'ignore':
+                        this.trust = Math.max(0, this.trust - 0.1);
+                        break;
+                    case 'steal':
+                        this.trust = Math.max(0, this.trust - 0.4);
+                        break;
+                    case 'lie':
+                        this.trust = Math.max(0, this.trust - 0.2);
+                        break;
+                }
+                
+                // Determine emotional state based on trust level
+                if (this.trust >= 0.8) {
+                    this.emotionalState = 'happy';
+                } else if (this.trust >= 0.6) {
+                    this.emotionalState = 'neutral';
+                } else if (this.trust >= 0.4) {
+                    this.emotionalState = 'sad';
+                } else if (this.trust >= 0.2) {
+                    this.emotionalState = 'fearful';
+                } else {
+                    this.emotionalState = 'angry';
+                }
+                
+                this.lastInteracted = Date.now();
+                return this.getReaction(action);
+            }
+            
+            // Get a reaction based on current emotional state and action
+            getReaction(action) {
+                const reactions = {
+                    happy: {
+                        help: "You're amazing! I'll give you 20% off anything!",
+                        buy: "Thank you! You're my favorite customer!",
+                        ignore: "Oh... okay. I'll be here if you need anything.",
+                        steal: "H-How could you? After all I've done for you?",
+                        lie: "I believed you... but now I'm not sure..."
+                    },
+                    neutral: {
+                        help: "Thanks for your help!",
+                        buy: "Thank you for your purchase.",
+                        ignore: "Alright, I'll be here.",
+                        steal: "Hey! That's not yours!",
+                        lie: "I'm not sure I believe that..."
+                    },
+                    sad: {
+                        help: "Thank you... that helps a little.",
+                        buy: "Thanks for buying... I really needed this.",
+                        ignore: "...",
+                        steal: "Please don't take that... I need it...",
+                        lie: "I can tell you're not being honest..."
+                    },
+                    fearful: {
+                        help: "T-thank you... I appreciate it.",
+                        buy: "H-here's your item...",
+                        ignore: "... *looks away nervously*",
+                        steal: "Don't hurt me! Take it if you must!",
+                        lie: "You seem dangerous... I don't trust you."
+                    },
+                    angry: {
+                        help: "I don't need your help!",
+                        buy: "Fine, take it. But I don't like you.",
+                        ignore: "Good! Stay away from me!",
+                        steal: "THIEF! I'll call the guards!",
+                        lie: "Liar! Get out of my sight!"
+                    }
+                };
+                
+                return reactions[this.emotionalState][action] || "I'm not sure how to feel about that...";
+            }
+            
+            // Draw the NPC on canvas
+            draw(ctx) {
+                // Draw glow effect
+                const gradient = ctx.createRadialGradient(
+                    this.x, this.y, 0,
+                    this.x, this.y, this.radius + 10
+                );
+                gradient.addColorStop(0, EMOTIONAL_STATES[this.emotionalState].color + '80');
+                gradient.addColorStop(1, EMOTIONAL_STATES[this.emotionalState].color + '00');
+                
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius + 10, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                
+                // Draw NPC body
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = EMOTIONAL_STATES[this.emotionalState].color;
+                ctx.fill();
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Draw face
+                ctx.beginPath();
+                ctx.arc(this.x - 10, this.y - 5, 5, 0, Math.PI * 2); // Left eye
+                ctx.arc(this.x + 10, this.y - 5, 5, 0, Math.PI * 2); // Right eye
+                ctx.fillStyle = 'white';
+                ctx.fill();
+                
+                // Draw mouth based on emotional state
+                ctx.beginPath();
+                if (this.emotionalState === 'happy') {
+                    ctx.arc(this.x, this.y + 10, 8, 0, Math.PI); // Smile
+                } else if (this.emotionalState === 'angry') {
+                    ctx.arc(this.x, this.y + 15, 8, Math.PI, 0); // Frown
+                } else if (this.emotionalState === 'sad') {
+                    ctx.arc(this.x, this.y + 15, 8, Math.PI, 0); // Slight frown
+                } else if (this.emotionalState === 'fearful') {
+                    ctx.arc(this.x, this.y + 10, 5, 0, Math.PI * 2); // O shape
+                } else {
+                    ctx.moveTo(this.x - 8, this.y + 10);
+                    ctx.lineTo(this.x + 8, this.y + 10); // Neutral line
+                }
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Draw name tag
+                ctx.font = '14px Arial';
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.fillText(this.name, this.x, this.y + this.radius + 20);
+            }
+        }
+        
+        // Game class
+        class Game {
+            constructor() {
+                this.canvas = document.getElementById('gameCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.npcs = [];
+                this.currentNPC = null;
+                this.init();
+            }
+            
+            init() {
+                // Create NPCs
+                this.npcs.push(new NPC('Aria the Shopkeeper', 200, 300));
+                this.npcs.push(new NPC('Boris the Guard', 400, 300));
+                this.npcs.push(new NPC('Clara the Healer', 600, 300));
+                this.currentNPC = this.npcs[0];
+                
+                // Draw initial state
+                this.draw();
+                
+                // Setup event listeners
+                document.getElementById('helpBtn').addEventListener('click', () => this.interact('help'));
+                document.getElementById('buyBtn').addEventListener('click', () => this.interact('buy'));
+                document.getElementById('ignoreBtn').addEventListener('click', () => this.interact('ignore'));
+                document.getElementById('stealBtn').addEventListener('click', () => this.interact('steal'));
+                document.getElementById('lieBtn').addEventListener('click', () => this.interact('lie'));
+                
+                // Click on NPCs to select them
+                this.canvas.addEventListener('click', (e) => {
+                    const rect = this.canvas.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    // Check if clicked on an NPC
+                    for (const npc of this.npcs) {
+                        const dx = x - npc.x;
+                        const dy = y - npc.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance <= npc.radius) {
+                            this.currentNPC = npc;
+                            document.getElementById('npcName').textContent = npc.name;
+                            document.getElementById('memoryIndicator').textContent = 
+                                `Memory: ${EMOTIONAL_STATES[npc.emotionalState].name}`;
+                            this.updateDialogue("What would you like to do?");
+                            break;
+                        }
+                    }
+                });
+            }
+            
+            interact(action) {
+                if (!this.currentNPC) return;
+                
+                // Process the interaction
+                const reaction = this.currentNPC.processInteraction(action);
+                
+                // Update UI
+                this.updateDialogue(reaction);
+                document.getElementById('npcName').textContent = this.currentNPC.name;
+                document.getElementById('memoryIndicator').textContent = 
+                    `Memory: ${EMOTIONAL_STATES[this.currentNPC.emotionalState].name}`;
+                
+                // Redraw
+                this.draw();
+                
+                // Show feedback
+                this.showFeedback(action);
+            }
+            
+            updateDialogue(text) {
+                document.getElementById('dialogue').innerHTML = `<p>${text}</p>`;
+            }
+            
+            showFeedback(action) {
+                // Create feedback text
+                const feedbackText = document.createElement('div');
+                feedbackText.textContent = this.getActionText(action);
+                feedbackText.style.position = 'absolute';
+                feedbackText.style.left = '50%';
+                feedbackText.style.top = '100px';
+                feedbackText.style.transform = 'translateX(-50%)';
+                feedbackText.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                feedbackText.style.color = 'white';
+                feedbackText.style.padding = '10px 20px';
+                feedbackText.style.borderRadius = '20px';
+                feedbackText.style.fontSize = '1.2rem';
+                feedbackText.style.zIndex = '10';
+                feedbackText.style.textAlign = 'center';
+                feedbackText.style.animation = 'fadeInOut 3s forwards';
+                
+                // Add animation keyframes if not exists
+                if (!document.getElementById('feedback-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'feedback-style';
+                    style.textContent = `
+                        @keyframes fadeInOut {
+                            0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                            10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                            90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                            100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                this.canvas.parentElement.appendChild(feedbackText);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    feedbackText.remove();
+                }, 3000);
+            }
+            
+            getActionText(action) {
+                const actions = {
+                    help: "You helped the NPC",
+                    buy: "You bought an item",
+                    ignore: "You ignored the NPC",
+                    steal: "You stole from the NPC",
+                    lie: "You lied to the NPC"
+                };
+                return actions[action] || "You interacted with the NPC";
+            }
+            
+            draw() {
+                // Clear canvas
+                this.ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+                
+                // Draw background
+                this.ctx.fillStyle = '#0d1b2a';
+                this.ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+                
+                // Draw floor
+                this.ctx.fillStyle = '#1b263b';
+                this.ctx.fillRect(0, 400, GAME_WIDTH, 100);
+                
+                // Draw street
+                this.ctx.strokeStyle = '#415a77';
+                this.ctx.lineWidth = 2;
+                this.ctx.beginPath();
+                this.ctx.moveTo(0, 390);
+                this.ctx.lineTo(GAME_WIDTH, 390);
+                this.ctx.stroke();
+                
+                // Draw buildings
+                this.ctx.fillStyle = '#1b4965';
+                this.ctx.fillRect(50, 150, 100, 250);
+                this.ctx.fillRect(300, 100, 120, 300);
+                this.ctx.fillRect(550, 120, 130, 280);
+                
+                // Draw windows
+                this.ctx.fillStyle = '#3498db';
+                for (let i = 0; i < 3; i++) {
+                    for (let j = 0; j < 2; j++) {
+                        this.ctx.fillRect(70 + i*25, 180 + j*40, 15, 20);
+                    }
+                }
+                
+                // Draw NPCs
+                for (const npc of this.npcs) {
+                    npc.draw(this.ctx);
+                }
+                
+                // Draw player
+                this.ctx.beginPath();
+                this.ctx.arc(400, 350, 20, 0, Math.PI * 2);
+                this.ctx.fillStyle = '#e74c3c';
+                this.ctx.fill();
+                this.ctx.strokeStyle = 'white';
+                this.ctx.lineWidth = 2;
+                this.ctx.stroke();
+                
+                // Draw player eyes
+                this.ctx.beginPath();
+                this.ctx.arc(395, 345, 4, 0, Math.PI * 2);
+                this.ctx.arc(405, 345, 4, 0, Math.PI * 2);
+                this.ctx.fillStyle = 'white';
+                this.ctx.fill();
+                
+                // Draw player mouth
+                this.ctx.beginPath();
+                this.ctx.arc(400, 355, 6, 0, Math.PI);
+                this.ctx.strokeStyle = 'white';
+                this.ctx.lineWidth = 2;
+                this.ctx.stroke();
+            }
+        }
+        
+        // Initialize the game when page loads
+        window.addEventListener('load', () => {
+            new Game();
+        });
+    </script>
+</body>
+</html>

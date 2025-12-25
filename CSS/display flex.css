@@ -1,0 +1,29 @@
+#container{
+    height:400px;
+    width: 100%;
+    background-color: aliceblue;
+    border: 2px solid black;
+    display: flex;
+    flex-direction:row;
+    justify-content:flex-start;
+    flex-wrap:wrap;
+    /* align-items:baseline; */
+                        /* IN BASELINE PROPERTY,THE ALIGNMENT OF CONTAINER IS ACCORDING TO THE BASELINE OF FONT  */
+    align-content:flex-start;
+                        /* diff between Justify-content and Align-content is justify gives space between and around along
+                        main axis and align gives along cross axis */
+}
+#org{
+    align-self: flex-start;  /*Align-self works on individual for their positions*/
+    flex:1 1 100px; 
+}
+#blu{
+    flex-shrink: 2;
+}
+
+#container div{
+    height: 50px;
+    width: 160px;
+    text-align: center;
+    font-size: 1.5em;
+}

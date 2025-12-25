@@ -1,0 +1,58 @@
+ *{
+    font-family: 'Courier New';
+ }
+
+ h3,
+ h1{
+    color:rgb(245, 41, 54) 
+ }
+ #login{
+   background-color: white;
+ }
+                                 /* in ID selector, it is used when multiple contents are in the same tag but we
+                           have to modify only one tag. (agar button tag me 4-5 buttons h prr 1 hi button me 
+                           modify krna hai tab) */
+ #signup{
+   background-color:rgb(245, 41, 54) ;   
+   color: white
+ }
+ .upvote{
+   background-color: green;
+   color:white;
+ }
+  /* Descendent Selector In this the effect oonly applies to the last entered tag in this case that is a */
+nav li a{
+   color:orange;
+}
+/* SIBLING COMBINATOR */
+
+.upvote + button {
+   background-color: lightblue ;       
+}
+/* CHILD COMBINATOR */
+div > input{
+   background-color: lightgrey;
+}
+/* ATTRIBUTE SELECTOR */
+input[type="text"]{
+   color:darkgreen;
+}
+input[type="password"]{
+   color:red;
+}
+input[type]{
+background-color:wheat;
+}
+button:hover{
+   background-color: black;
+   color:white;
+}
+p :active{
+   color:green;
+   background-color:darkmagenta;
+}
+input[type="radio"]:checked + label{
+   color:red;
+   font-weight: bold;
+
+}

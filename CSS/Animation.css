@@ -1,0 +1,31 @@
+#box{
+    height: 200px;
+    width: 300px;
+    margin: 100px 0 0 500px;
+    background-color:blanchedalmond;
+    text-align: center;
+    font-size: 1.5em;
+    /* animation-name: sumAnimation;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 4;
+    animation-direction: normal; */
+
+    animation: sumAnimation ease-in 2s 0s infinite normal;
+}
+
+@keyframes sumAnimation{
+    from{
+        font-size: 1.5em;
+        color:violet;
+        background-color:blanchedalmond;
+        box-shadow: 4px black;
+    }
+    to{
+        font-size: 2.5em;
+        color:lightsalmon;
+        background-color: darkcyan;
+        box-shadow: 10px black;
+    }
+}

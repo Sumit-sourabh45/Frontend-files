@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Problem No. 01</h2>
+    <table border="black">
+        <caption>Student information </caption>
+            <tr>
+                <th rowspan="6">info</th>
+                <th rowspan="2">Name</th>
+                <th colspan="2">Address</th>
+            </tr>
+            <tr>
+                <th>City</th>
+                <th>Houses</th>
+            </tr>
+        <tr>
+            <td>A</td>
+            <td>Delhi</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Mumbai</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>Pune</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>D</td>
+            <td>Udaipur</td>
+            <td>4</td>
+        </tr>
+    </table>
+    <br>
+    <h1>Problem No. 02</h1>
+    <!-- HeRE THE PROBLEM 2 BEGINS -->
+
+    <form action="/server">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter name">
+        <br>
+        
+        Sex:
+        <input type="radio" name="gen" id="male" value="m ">
+        <label for="male" >Male</label>
+
+        <input type="radio" name="gen" id="female" value="f">
+        <label for="female" >female</label>
+        <div>
+            <label for="coun">Country:</label> 
+            <select id="coun" name="coun" placeholder="select an option ">
+                
+                <option value="India">India</option>
+                <option value="Australia">Australia</option>
+                <option value="USA">USA</option>
+            </select>
+        </div>
+        <div>
+            <label for="feedback">Message:</label>
+            <br>
+            <textarea name="feed" id="feedback" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+            <label for="subscribe">subscribe</label>
+            <input type="checkbox" id="subscribe" name="sub">
+        </div>
+        <button>Submit</button>
+       </form>
+       <br>
+
+       <!--HERE THE PROBLEM NO. 03 BEGINS-->
+       <h1>Problem No. 03</h1>
+    <form action="/ok">
+        <h3>Feedback Form</h3>
+        <label for="nme">Name:</label>
+        <input type="text" id="nme" name="nme" placeholder="Write your name">
+<br>
+        <label for="mail">Email:</label>
+        <input type="text" id="mail" name="mail" placeholder="Write your email">
+<div>
+    <label for="feed">Message:</label>
+    <br>
+    <textarea id="feed" name="f"></textarea>
+</div>
+<div>
+    Rate us out of 5:
+    <br>
+    <input type="radio" name="rate">
+    <label>1</label>
+<br>
+    <input type="radio" name="rate">
+    <label>2</label>
+    <br>
+    <input type="radio" name="rate">
+    <label>3</label>
+    <br>
+    <input type="radio" name="rate">
+    <label>4</label>
+    <br>
+    <input type="radio" name="rate">
+    <label>5</label>
+
+</div>
+</form>
+</body>
+</html>

@@ -1,0 +1,10 @@
+h1{
+    color:#1b74e4;
+}
+input+button{
+    background-color:black;
+    color:white;
+}
+button{
+    background-color: aqua;
+}

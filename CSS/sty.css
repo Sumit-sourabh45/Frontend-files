@@ -1,0 +1,30 @@
+span{
+    height: 50px;
+    border: 2px solid black;
+    width: 50px;
+    padding: 50px;
+    margin: 5px;
+}
+h1{
+    text-align: center;
+    color:rgb(5, 81, 81);
+    text-decoration:underline wavy;
+}
+h2{
+    color:olive;
+    text-align:center;
+    text-decoration:double underline;
+    
+}
+button{
+    color:goldenrod;
+    background-color: whitesmoke;
+    
+}
+p{
+    color:rgb(82, 172, 236);
+    font-size: 150%;
+    font-family: copperplate ;
+    text-align: center;
+}
+

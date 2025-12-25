@@ -1,0 +1,15 @@
+div{
+    background-color:aliceblue;
+}
+form{
+    background-color:green;
+}
+            /* INPUT BOXES, BUTTONS,width,border DO NOT INHERIT FROM INHERITANCE */
+            /* **TO INHERIT IN THESE FROM PARENTS CLASS */
+
+input{
+    background-color:inherit;
+}
+button{
+    background-color:inherit; 
+}

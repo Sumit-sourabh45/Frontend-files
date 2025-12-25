@@ -1,0 +1,34 @@
+#container{
+    height: 600px;
+    width: 600px;
+    background-color:cornsilk;
+    display: grid;
+    grid-template-rows: 120px  120px 120px;
+    grid-template-columns: 180px 180px 180px;
+    /* grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); */
+    row-gap: 10px;
+    column-gap: 10px;
+                                    /* GAP SHORTHAND IS */
+    grid-gap: 10px;
+    justify-items:center;       /*THIS IS FOR HORIZONTAL CHANGES*/
+    align-items: start;  /*THIS IS FOR VERTICAL CHANGES*/
+
+}
+.one{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    /* grid-row-start: 1;
+    grid-row-end: 3;             Alternative is*/ 
+
+    grid-row: 1/3;
+    
+    place-self: start;          /*THIS APPLIES FOR BOTH VERTICALLY AND HORIZONTALLY*/
+}
+.item{
+    height: 80px;
+    width: 100px;
+    background-color:darkseagreen;
+    border: 2px solid black; 
+    text-align: center;
+}

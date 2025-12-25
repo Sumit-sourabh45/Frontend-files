@@ -1,0 +1,19 @@
+#box{
+    height: 200px;
+    width: 300px;
+    background-color: rgb(221, 221, 97);
+    margin: 0 auto;
+    margin-top: 100px;
+    box-shadow: 2px 2px 8px black;
+}
+
+#backgroundimage{
+    height: 200px;
+    width: 300px;
+    margin-bottom: 400px;
+    margin-left: 50px;
+    background-color: #7aa874;
+    background-image: url(https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=800);
+    color: rgb(113, 113, 190);
+    background-size: cover;
+}

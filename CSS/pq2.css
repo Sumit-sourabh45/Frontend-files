@@ -1,0 +1,28 @@
+#outer{
+    height: 200px;
+    width: 70px;
+    border: 2px solid black;
+}
+/* div{
+    height:50px;
+    border: 2px solid black;        THIS IS THE ONE WAY TO MAKE CHANGES INSIDE PARENT DIV AS I'D SELECTOR 
+                                    HAS HIGHER PRIORITY// alternative way is  BY MAKING CLASS IN DIV//
+    width: 50px;
+    margin: 10px ;
+} */
+.inside{
+    height: 50px;
+    border: 2px solid black;
+    width: 50px;
+    margin: 10px;
+    border-radius: 50%;
+}
+#red{
+    background-color: red;
+}
+#yellow{
+    background-color: yellow;
+}
+#green{
+    background-color: green;
+}

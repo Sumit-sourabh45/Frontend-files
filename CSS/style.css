@@ -1,0 +1,27 @@
+div{
+    height:300px;
+    width:500px;
+    /* border-width:5px;
+    border-color:black;
+    border-style:dashed;  */
+    margin:20px 10px 40px ;
+    padding-top :10px;
+
+/* BORDER SHORTHAND */
+    border:4px solid black;
+    border-top-right-radius:15px;
+    border-bottom-left-radius:15px;
+} 
+h1{
+    border-width:3px;
+    border-style:groove;
+    border-color:aquamarine;
+
+}
+button{
+    border:2px solid black;
+    border-radius: 10px;
+    padding-left:25px;
+    padding-right: 25px;
+    background-color:burlywood; 
+}
