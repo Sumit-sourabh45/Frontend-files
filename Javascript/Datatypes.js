@@ -27,3 +27,21 @@ console.log(checkBoolean)
 const id = Symbol("123")
 const anotherId = Symbol("123")
 console.log(id === anotherId); //Symbol stores unique id
+
+
+// STACK (PRIMITIVE),HEAP (NON - PRIMITIVE)
+
+let userName = "Sumit"
+let userName2 = userName
+userName2 = "Sourabh"
+console.log(userName)
+console.log(userName2) //ln(34-38) is ex of stack
+
+let userOne = {
+    emali: "sumti@google.com",
+    userId:  "chintu@ybl"
+}
+let userTwo =
+userTwo.email = "ssourabhsumit@gmail.com"
+console.log(userOne.email)
+console.log(userTwo.email)
