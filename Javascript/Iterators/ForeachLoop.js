@@ -1,28 +1,47 @@
-// let myArray = ["flash", "batman", "superman"]
-// console.log(myArray.length);
-// for (let index = 0; index < myArray.length; index++) {
-//     const element = myArray[index];
-//     console.log(element);
-    
-// }
+const myarr = ["hanji", "sumit", "javascript", "cpp"]
+myarr.forEach(function (values){
+    // console.log(values)
+})
 
-//break and continue
+//Does for each loop return values?
+const values = myarr.forEach(function (items){
+    // console.log(items)
+    return items        //even after trying to return- for each loop doesn't return anything
+})
+console.log(values) //NO, for each doesn't return any values
 
-// for (let i = 1; i < 10; i++) {
-//     if (i == 5) {
-//         console.log("5 is found, STOP!");
-//         break
-        
-//     }
-//     console.log(`value of i is ${i}`);          //select and press shift+option+dwn arrow key to duplicate
-// }
-for (let i = 1; i < 10; i++) {
-    if (i == 5) {
-        console.log("5 is found, Let Go!");
-        continue
-        
-    }
-    console.log(`value of i is ${i}`);
-    
-    
+
+//through arrow fn
+myarr.forEach((item) =>{
+//  console.log(item)
+})
+
+// through bymade fn
+function printValues(items){
+    // console.log(items)
 }
+myarr.forEach(printValues);
+
+//more of arrow fn
+myarr.forEach((item, index, arr ) =>{
+//  console.log(item, index, arr)
+})
+
+//accessing values of object inside an array
+const phones = [
+    {
+        phoneName: "Apple",
+        phonePrices: 49999
+    },
+    {
+        phoneName: "Samsung",
+        phonePrices: 36000
+    },
+    {
+        phoneName: "Redmi",
+        phonePrices: 12000
+    }
+]
+phones.forEach((detials) =>{
+    // console.log(detials.phonePrices)
+})
