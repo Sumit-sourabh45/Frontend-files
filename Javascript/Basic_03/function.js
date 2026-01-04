@@ -40,7 +40,7 @@ accessingUserObject(user)   //calling fn
 
 accessingUserObject({       //we can also pass object directly
     purchasaeItem: "sumit",
-    price: 21
+    price: 9999999999999999
 })
 
 const array = [12, 34, 5]
