@@ -19,7 +19,7 @@ chai()
 
 const code = () =>{
     let username = "sumit"
-    console.log(this);
+    console.log(this.username);
 }
 code()
 
