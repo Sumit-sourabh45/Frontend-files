@@ -22,6 +22,8 @@ function loginUserMessage(username){
 }
 console.log(loginUserMessage('sumit'))
 
+1
+
 function addingItemsToCart(val1, ...num1){        //rest operator is used to add n no. of input to array
     return num1
 }
@@ -29,14 +31,14 @@ console.log(addingItemsToCart(100,400,24))
 
 //HANDLING OBJECT THROUGH FUNCTION
 const user = {
-    purchasaeItem: "Milk",
+    purchaseItem: "Milk",
     price: 200
 }
 function accessingUserObject(anyobject){
-    console.log(`the purchase item is: ${anyobject.purchasaeItem} and it's price is: ${anyobject.price}`);
+    console.log(`the purchase item is: ${anyobject.purchaseItem} and it's price is: ${anyobject.price}`);
     
 }
-accessingUserObject(user)   //calling fn
+accessingUserObject(user)   //calling fn and passing object inside
 
 accessingUserObject({       //we can also pass object directly
     purchasaeItem: "sumit",
@@ -45,6 +47,6 @@ accessingUserObject({       //we can also pass object directly
 
 const array = [12, 34, 5]
 function returnarray(getarray){
-    return getarray
+    return getarray[1]
 }
-console.log(array)
+console.log(returnarray(array))
