@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start and Stop</title>
+</head>
+<body>
+    <h1>More of Events</h1>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+</body>
+<script>
+    const sayDate = function() {
+        console.log("Sumit", Date.now());
+    }
+
+    let Print = null; // Don't start automatically
+
+    document.querySelector("#start").addEventListener('click', function() {
+        if (Print === null) { // Prevent multiple intervals stacking up
+            Print = setInterval(sayDate, 1000);
+            console.log('Started printing');
+        }
+    });
+
+    document.querySelector("#stop").addEventListener('click', function() {
+        clearInterval(Print);
+        Print = null; // Reset so Start can work again
+        console.log("Stopped printing");
+    });
+</script>
+</html>
