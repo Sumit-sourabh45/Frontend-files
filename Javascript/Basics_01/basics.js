@@ -10,3 +10,14 @@ separate ${} for each variable
 console.log(`Outputs are:  ${var1}, ${accountId}, ${accountPassword}, ${accountName}, ${accountstate}`)
 
 console.table({var1, accountId, accountPassword, accountName, accountstate})
+
+
+// First class functions
+function outer(){
+    function inner(){
+        console.log("hello")
+    }
+    return inner
+}
+const result = outer()
+result();      //this is basically a closure
